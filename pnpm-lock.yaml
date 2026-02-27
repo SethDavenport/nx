@@ -3541,8 +3541,8 @@ importers:
         specifier: ^4.0.1
         version: 4.0.1
       open:
-        specifier: ^8.4.0
-        version: 8.4.2
+        specifier: ^10.1.0
+        version: 10.1.0
       ora:
         specifier: 5.3.0
         version: 5.3.0
@@ -52144,7 +52144,7 @@ snapshots:
       lines-and-columns: 2.0.3
       minimatch: 10.2.4
       npm-run-path: 4.0.1
-      open: 8.4.2
+      open: 10.1.0
       ora: 5.3.0
       picocolors: 1.1.1
       resolve.exports: 2.0.3
