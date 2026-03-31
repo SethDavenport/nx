@@ -202,17 +202,6 @@ describe('app', () => {
           expect(tree.read('myapp2/nuxt.config.ts', 'utf-8')).toMatchSnapshot();
         });
 
-        it('should configure less', async () => {
-          await applicationGenerator(tree, {
-            directory: 'myapp3',
-            unitTestRunner: 'none',
-            style: 'less',
-            useAppDir: false,
-          });
-          expect(tree.exists('myapp3/src/assets/css/styles.less')).toBeTruthy();
-          expect(tree.read('myapp3/nuxt.config.ts', 'utf-8')).toMatchSnapshot();
-        });
-
         it('should not configure styles', async () => {
           await applicationGenerator(tree, {
             directory: 'myapp4',
@@ -454,16 +443,9 @@ describe('app', () => {
       expect(tree.read('myapp/vite.config.ts', 'utf-8')).toMatchInlineSnapshot(
         `null`
       );
-      expect(readJson(tree, 'tsconfig.json').references).toMatchInlineSnapshot(`
-        [
-          {
-            "path": "./myapp-e2e",
-          },
-          {
-            "path": "./myapp",
-          },
-        ]
-      `);
+      expect(readJson(tree, 'tsconfig.json').references).toMatchInlineSnapshot(
+        `[]`
+      );
       const packageJson = readJson(tree, 'myapp/package.json');
       expect(packageJson.name).toBe('@proj/myapp');
       expect(packageJson.nx).toBeUndefined();

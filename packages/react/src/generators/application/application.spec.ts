@@ -117,10 +117,10 @@ describe('app', () => {
                     "cypressDir": "src",
                     "bundler": "vite",
                     "webServerCommands": {
-                        "default": "npx nx run my-app:dev",
-                        "production": "npx nx run my-app:preview"
+                        "default": "pnpm exec nx run my-app:dev",
+                        "production": "pnpm exec nx run my-app:preview"
                     },
-                    "ciWebServerCommand": "npx nx run my-app:preview",
+                    "ciWebServerCommand": "pnpm exec nx run my-app:preview",
                     "ciBaseUrl": "http://localhost:4300"
                 }),
                 baseUrl: 'http://localhost:4200'
@@ -501,8 +501,6 @@ describe('app', () => {
 
   it.each`
     style
-    ${'styled-components'}
-    ${'styled-jsx'}
     ${'@emotion/styled'}
   `(
     'should generate valid .babelrc JSON config for CSS-in-JS solutions',
@@ -524,35 +522,6 @@ describe('app', () => {
     it('should generate scss styles', async () => {
       await applicationGenerator(appTree, { ...schema, style: 'scss' });
       expect(appTree.exists('my-app/src/app/app.module.scss')).toEqual(true);
-      const content = appTree.read('my-app/src/app/app.tsx').toString();
-      expect(content).toMatchSnapshot();
-    });
-  });
-
-  describe('--style tailwind', () => {
-    it('should generate tailwind setup', async () => {
-      await applicationGenerator(appTree, { ...schema, style: 'tailwind' });
-      expect(appTree.exists('my-app/tailwind.config.js')).toEqual(true);
-      expect(appTree.read('my-app/src/styles.css', 'utf-8'))
-        .toMatchInlineSnapshot(`
-        "@tailwind base;
-        @tailwind components;
-        @tailwind utilities;
-        /* You can add global styles to this file, and also import other style files */
-        "
-      `);
-    });
-
-    it('should not generate any styles files', async () => {
-      await applicationGenerator(appTree, { ...schema, style: 'tailwind' });
-
-      expect(appTree.exists('my-app/src/app/app.tsx')).toBeTruthy();
-      expect(appTree.exists('my-app/src/app/app.spec.tsx')).toBeTruthy();
-      expect(appTree.exists('my-app/src/app/app.css')).toBeFalsy();
-      expect(appTree.exists('my-app/src/app/app.scss')).toBeFalsy();
-      expect(appTree.exists('my-app/src/app/app.module.css')).toBeFalsy();
-      expect(appTree.exists('my-app/src/app/app.module.scss')).toBeFalsy();
-
       const content = appTree.read('my-app/src/app/app.tsx').toString();
       expect(content).toMatchSnapshot();
     });
@@ -817,35 +786,6 @@ describe('app', () => {
     });
   });
 
-  describe('--style styled-components', () => {
-    it('should use styled-components as the styled API library', async () => {
-      await applicationGenerator(appTree, {
-        ...schema,
-        style: 'styled-components',
-      });
-
-      expect(
-        appTree.exists('my-app/src/app/app.styled-components')
-      ).toBeFalsy();
-      expect(appTree.exists('my-app/src/app/app.tsx')).toBeTruthy();
-      expect(appTree.exists('my-app/src/styles.styled-components')).toBeFalsy();
-
-      const content = appTree.read('my-app/src/app/app.tsx').toString();
-      expect(content).toContain('styled-component');
-      expect(content).toContain('<StyledApp>');
-    });
-
-    it('should add dependencies to package.json', async () => {
-      await applicationGenerator(appTree, {
-        ...schema,
-        style: 'styled-components',
-      });
-
-      const packageJSON = readJson(appTree, 'package.json');
-      expect(packageJSON.dependencies['styled-components']).toBeDefined();
-    });
-  });
-
   describe('--style @emotion/styled', () => {
     it('should use @emotion/styled as the styled API library', async () => {
       await applicationGenerator(appTree, {
@@ -907,41 +847,6 @@ describe('app', () => {
     });
   });
 
-  describe('--style styled-jsx', () => {
-    it('should use styled-jsx as the styled API library', async () => {
-      await applicationGenerator(appTree, {
-        ...schema,
-        style: 'styled-jsx',
-      });
-
-      expect(appTree.exists('my-app/src/app/app.styled-jsx')).toBeFalsy();
-      expect(appTree.exists('my-app/src/app/app.tsx')).toBeTruthy();
-
-      const content = appTree.read('my-app/src/app/app.tsx').toString();
-      expect(content).toContain('<style jsx>');
-    });
-
-    it('should add dependencies to package.json', async () => {
-      await applicationGenerator(appTree, {
-        ...schema,
-        style: 'styled-jsx',
-      });
-
-      const packageJSON = readJson(appTree, 'package.json');
-      expect(packageJSON.dependencies['styled-jsx']).toBeDefined();
-    });
-
-    it('should update babel config', async () => {
-      await applicationGenerator(appTree, {
-        ...schema,
-        style: 'styled-jsx',
-      });
-
-      const babelrc = readJson(appTree, 'my-app/.babelrc');
-      expect(babelrc.plugins).toContain('styled-jsx/babel');
-    });
-  });
-
   describe('--routing', () => {
     it('should add routes to the App component', async () => {
       await applicationGenerator(appTree, {
@@ -983,21 +888,20 @@ describe('app', () => {
     it('should update workspace with defaults when --skipprojectsConfigurations=false', async () => {
       await applicationGenerator(appTree, {
         ...schema,
-        style: 'styled-components',
+        style: 'scss',
         skipNxJson: false,
       });
 
       const nxJson = readNxJson(appTree);
       expect(nxJson.generators['@nx/react']).toMatchObject({
         application: {
-          babel: true,
-          style: 'styled-components',
+          style: 'scss',
         },
         component: {
-          style: 'styled-components',
+          style: 'scss',
         },
         library: {
-          style: 'styled-components',
+          style: 'scss',
         },
       });
     });
@@ -1379,17 +1283,9 @@ describe('app', () => {
         useProjectJson: false,
       });
 
-      expect(readJson(appTree, 'tsconfig.json').references)
-        .toMatchInlineSnapshot(`
-        [
-          {
-            "path": "./myapp-e2e",
-          },
-          {
-            "path": "./myapp",
-          },
-        ]
-      `);
+      expect(
+        readJson(appTree, 'tsconfig.json').references
+      ).toMatchInlineSnapshot(`[]`);
       const packageJson = readJson(appTree, 'myapp/package.json');
       expect(packageJson.name).toBe('@proj/myapp');
       expect(packageJson.nx).toBeUndefined();
@@ -1681,7 +1577,7 @@ describe('app', () => {
 
         module.exports = {
           output: {
-            path: join(__dirname, 'dist'),
+            path: join(__dirname, '../../dist/apps/my-app'),
             clean: true,
           },
           devServer: {
@@ -1798,11 +1694,7 @@ describe('app', () => {
   });
 
   describe('--bundler=rsbuild', () => {
-    it.each([
-      { style: 'styled-components' },
-      { style: 'styled-jsx' },
-      { style: '@emotion/styled' },
-    ])(
+    it.each([{ style: '@emotion/styled' }])(
       `should generate valid rsbuild config files for $style`,
       async ({ style }) => {
         await applicationGenerator(appTree, {

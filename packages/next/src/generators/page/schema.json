@@ -25,6 +25,15 @@
       "type": "string",
       "alias": "s",
       "default": "css",
+      "enum": [
+        "css",
+        "scss",
+        "less",
+        "styled-components",
+        "@emotion/styled",
+        "styled-jsx",
+        "none"
+      ],
       "x-prompt": {
         "message": "Which stylesheet format would you like to use?",
         "type": "list",
@@ -35,23 +44,7 @@
           },
           {
             "value": "scss",
-            "label": "SASS(.scss)       [ https://sass-lang.com          ]"
-          },
-          {
-            "value": "less",
-            "label": "LESS              [ https://lesscss.org            ]"
-          },
-          {
-            "value": "styled-components",
-            "label": "styled-components [ https://styled-components.com ]"
-          },
-          {
-            "value": "@emotion/styled",
-            "label": "emotion           [ https://emotion.sh            ]"
-          },
-          {
-            "value": "styled-jsx",
-            "label": "styled-jsx        [ https://www.npmjs.com/package/styled-jsx ]"
+            "label": "SASS(.scss)       [ https://sass-lang.com   ]"
           },
           {
             "value": "none",

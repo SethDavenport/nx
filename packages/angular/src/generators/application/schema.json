@@ -25,7 +25,7 @@
       "description": "The file extension to be used for style files.",
       "type": "string",
       "default": "css",
-      "enum": ["css", "scss", "sass", "less"],
+      "enum": ["css", "scss", "sass", "less", "tailwind"],
       "x-prompt": {
         "message": "Which stylesheet format would you like to use?",
         "type": "list",
@@ -43,8 +43,8 @@
             "label": "SASS(.sass)  [ https://sass-lang.com   ]"
           },
           {
-            "value": "less",
-            "label": "LESS         [ https://lesscss.org     ]"
+            "value": "tailwind",
+            "label": "Tailwind CSS [ https://tailwindcss.com ]"
           }
         ]
       }

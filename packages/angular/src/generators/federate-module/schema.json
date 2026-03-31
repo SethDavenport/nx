@@ -47,7 +47,7 @@
       "description": "The file extension to be used for style files for the Producer (remote) if one needs to be created.",
       "type": "string",
       "default": "css",
-      "enum": ["css", "scss", "sass", "less"]
+      "enum": ["css", "scss", "sass", "less", "tailwind"]
     },
     "skipFormat": {
       "description": "Skip formatting files.",
