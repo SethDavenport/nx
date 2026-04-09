@@ -638,6 +638,9 @@ importers:
       '@nx/key':
         specifier: 3.0.0
         version: 3.0.0
+      '@nx/maven':
+        specifier: 22.7.0-beta.11
+        version: 22.7.0-beta.11(nx@22.7.0-beta.11(@swc-node/register@1.11.1(@swc/core@1.15.10(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.2))(@swc/core@1.15.10(@swc/helpers@0.5.18)))
       '@nx/next':
         specifier: 22.7.0-beta.11
         version: 22.7.0-beta.11(583e8ab67045a2432198d8dc00461de6)
@@ -10144,6 +10147,9 @@ packages:
   '@nx/key@4.0.0':
     resolution: {integrity: sha512-oXYTVb79zV3J3GIMT0jUzzPBSzd6Z5ku4hkfvpSfFAQ8b0LGzNMuPWkw+wfbR7vOZZSQ2iAEzLNEm4r1O9zHnw==}
     engines: {node: '>= 10'}
+
+  '@nx/maven@22.7.0-beta.11':
+    resolution: {integrity: sha512-GzaXbfHDZh3KZgj6lqa359Scn90WO/OlXcDJbjjQNRdpS8WxKjTw+wyS+pI3YYioQDCO+RKvthGX72XsW5pXhg==}
 
   '@nx/module-federation@22.7.0-beta.11':
     resolution: {integrity: sha512-F/ZN81u98QWuk4Nz//FE5LhpPceXUpn+boiyT84M/A/ACB4fmJzkFDT/OvHD5laA0GiB1cnf0mxny+cMX15yPg==}
@@ -32086,7 +32092,7 @@ snapshots:
       execa: 5.1.1
       fs-extra: 11.3.0
       html-tags: 3.3.1
-      html-webpack-plugin: 5.6.3(@rspack/core@1.6.8(@swc/helpers@0.5.18))(webpack@5.101.3)
+      html-webpack-plugin: 5.6.3(@rspack/core@1.6.8(@swc/helpers@0.5.18))(webpack@5.101.3(@swc/core@1.15.10(@swc/helpers@0.5.18))(esbuild@0.25.0)(webpack-cli@5.1.4))
       leven: 3.1.0
       lodash: 4.17.21
       open: 8.4.2
@@ -36802,6 +36808,15 @@ snapshots:
       '@nx/key-win32-x64-msvc': 4.0.0
     transitivePeerDependencies:
       - debug
+
+  '@nx/maven@22.7.0-beta.11(nx@22.7.0-beta.11(@swc-node/register@1.11.1(@swc/core@1.15.10(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.2))(@swc/core@1.15.10(@swc/helpers@0.5.18)))':
+    dependencies:
+      '@nx/devkit': 22.7.0-beta.11(nx@22.7.0-beta.11(@swc-node/register@1.11.1(@swc/core@1.15.10(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.2))(@swc/core@1.15.10(@swc/helpers@0.5.18)))
+      '@xmldom/xmldom': 0.8.11
+      tree-kill: 1.2.2
+      tslib: 2.8.1
+    transitivePeerDependencies:
+      - nx
 
   '@nx/module-federation@22.7.0-beta.11(@babel/traverse@7.29.0)(@swc-node/register@1.11.1(@swc/core@1.15.10(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.2))(@swc/core@1.15.10(@swc/helpers@0.5.18))(@swc/helpers@0.5.18)(esbuild@0.25.0)(next@14.2.35(@babel/core@7.26.10)(@opentelemetry/api@1.9.0)(@playwright/test@1.54.0)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.55.0))(nx@22.7.0-beta.11(@swc-node/register@1.11.1(@swc/core@1.15.10(@swc/helpers@0.5.18))(@swc/types@0.1.25)(typescript@5.9.2))(@swc/core@1.15.10(@swc/helpers@0.5.18)))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.9.2)(verdaccio@6.3.2(encoding@0.1.13)(typanion@3.14.0))(webpack-cli@5.1.4)':
     dependencies:
@@ -47651,7 +47666,7 @@ snapshots:
       tapable: 2.2.2
       webpack: 5.101.3(@swc/core@1.15.10(@swc/helpers@0.5.18))(esbuild@0.25.0)(webpack-cli@5.1.4)
 
-  html-webpack-plugin@5.6.3(@rspack/core@1.6.8(@swc/helpers@0.5.18))(webpack@5.101.3):
+  html-webpack-plugin@5.6.3(@rspack/core@1.6.8(@swc/helpers@0.5.18))(webpack@5.101.3(@swc/core@1.15.10(@swc/helpers@0.5.18))(esbuild@0.25.0)(webpack-cli@5.1.4)):
     dependencies:
       '@types/html-minifier-terser': 6.1.0
       html-minifier-terser: 6.1.0
@@ -59568,7 +59583,7 @@ snapshots:
       typed-assert: 1.0.9
       webpack: 5.101.3(@swc/core@1.15.10(@swc/helpers@0.5.18))(esbuild@0.25.0)(webpack-cli@5.1.4)
     optionalDependencies:
-      html-webpack-plugin: 5.6.3(@rspack/core@1.6.8(@swc/helpers@0.5.18))(webpack@5.101.3)
+      html-webpack-plugin: 5.6.3(@rspack/core@1.6.8(@swc/helpers@0.5.18))(webpack@5.101.3(@swc/core@1.15.10(@swc/helpers@0.5.18))(esbuild@0.25.0)(webpack-cli@5.1.4))
 
   webpack-subresource-integrity@5.1.0(html-webpack-plugin@5.6.3(@rspack/core@1.6.8(@swc/helpers@0.5.18))(webpack@5.105.2(@swc/core@1.15.10(@swc/helpers@0.5.18))(esbuild@0.27.3)(webpack-cli@5.1.4)))(webpack@5.105.2(@swc/core@1.15.10(@swc/helpers@0.5.18))(esbuild@0.27.3)(webpack-cli@5.1.4)):
     dependencies:
